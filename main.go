@@ -16,13 +16,6 @@ import (
 
 var db *gorm.DB
 
-// @title Backend Test for Smartlink Recruitment
-// @version 1.0
-// @description The system was created behalf of the assignment which was sent by email on 21st February, 2020
-
-// @contact.name Fathir Qisthi
-// @contact.email fathiriq@gmail.com
-// @contact.url https://github.com/3runrunrun/be-test
 func main() {
 	db = initDB()
 
