@@ -26,13 +26,7 @@ type response struct {
 func ProvideUserAPI(db *gorm.DB) Handler {
 	model := ProvideObject(db)
 	handler := Handler{Handler: model}
-
-	handler.debug()
 	return handler
-}
-
-func (h Handler) debug() {
-	log.Println("handler.go: ", h.Handler.DB)
 }
 
 // Register new user

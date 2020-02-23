@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/3runrunrun/be-test/database"
 	"github.com/3runrunrun/be-test/layanan"
@@ -28,11 +27,6 @@ func main() {
 
 	rootdir := server.Group("/")
 	{
-		rootdir.GET("debug", func(c *gin.Context) {
-			log.Println(userHandler.Handler.DB)
-			log.Println()
-			c.JSON(http.StatusOK, gin.H{"message": "berhasil"})
-		})
 		rootdir.POST("register", userHandler.Register())
 		rootdir.POST("/login", userHandler.Login())
 		rootdir.GET("show", middleware.Authorization(), userHandler.Show())

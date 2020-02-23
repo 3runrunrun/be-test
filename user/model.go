@@ -1,9 +1,6 @@
 package user
 
 import (
-	"fmt"
-	"log"
-
 	_ "github.com/go-sql-driver/mysql" //mysql dialect
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" //mysql dialect
@@ -26,14 +23,7 @@ type User struct {
 // ProvideObject provider
 func ProvideObject(db *gorm.DB) Object {
 	model := Object{DB: db}
-
-	model.debug()
 	return model
-}
-
-func (o Object) debug() {
-	log.Println("model.go", o.DB)
-	fmt.Println()
 }
 
 // Save new user

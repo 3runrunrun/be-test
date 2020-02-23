@@ -48,20 +48,15 @@ func (h Handler) getLayananDetail(idLayanan uint) LayananResponseMapper {
 
 	layanan = layananGateway.Read(idLayanan)
 
-	// log.Println(layanan)
-
 	j, err := json.MarshalIndent(layanan, "", "\t")
 	if err != nil {
 		log.Panicln("transaksi controller.go (marshal): ", err)
 	}
-
-	// log.Printf("%s\n\n", j)
 
 	err = json.Unmarshal(j, &layananResp)
 	if err != nil {
 		log.Panicln("transaksi controller.go (unmarshal): ", err)
 	}
 
-	// log.Println(layananResp)
 	return layananResp
 }
