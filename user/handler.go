@@ -64,7 +64,7 @@ func (h Handler) Login() gin.HandlerFunc {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"user": account.Username,
-			"exp":  time.Now().Add(time.Minute * time.Duration(1)).Unix(),
+			"exp":  time.Now().Add(time.Hour * time.Duration(1)).Unix(),
 			"iat":  time.Now().Unix(),
 			"iss":  "smartlink",
 		})
@@ -80,12 +80,12 @@ func (h Handler) Login() gin.HandlerFunc {
 		http.SetCookie(c.Writer, &http.Cookie{
 			Name:    "token",
 			Value:   tokenString,
-			Expires: time.Now().Add(5 * time.Minute),
+			Expires: time.Now().Add(time.Hour * time.Duration(1)),
 		})
 		http.SetCookie(c.Writer, &http.Cookie{
 			Name:    "id_pelanggan",
 			Value:   strconv.FormatUint(uint64(ret.ID), 36),
-			Expires: time.Now().Add(time.Minute * time.Duration(5)),
+			Expires: time.Now().Add(time.Hour * time.Duration(1)),
 		})
 
 		c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "status": "success", "data": ret})

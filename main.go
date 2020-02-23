@@ -16,6 +16,13 @@ import (
 
 var db *gorm.DB
 
+// @title Backend Test for Smartlink Recruitment
+// @version 1.0
+// @description The system was created behalf of the assignment which was sent by email on 21st February, 2020
+
+// @contact.name Fathir Qisthi
+// @contact.email fathiriq@gmail.com
+// @contact.url https://github.com/3runrunrun/be-test
 func main() {
 	db = initDB()
 
@@ -29,17 +36,18 @@ func main() {
 	{
 		rootdir.POST("register", userHandler.Register())
 		rootdir.POST("/login", userHandler.Login())
-		rootdir.GET("show", middleware.Authorization(), userHandler.Show())
-		// rootdir.POST("login", userHandler.Login())
 	}
 
 	api := server.Group("/api/v1")
 	{
 		api.Use(middleware.Authorization())
-		api.GET("/layanan/show", layananHandler.Show())
 		api.POST("/layanan/add", layananHandler.Add())
+		api.GET("/layanan/show", layananHandler.Show())
 
 		api.POST("/transaksi/add", transaksiHandler.Add())
+		api.GET("/transaksi/read/:idTransaksi", transaksiHandler.Read())
+
+		api.GET("/user/show", userHandler.Show())
 	}
 
 	err := server.Run(":3680")

@@ -41,3 +41,19 @@ func (o Object) SaveDetail(i Item) Item {
 
 	return i
 }
+
+// Read a single transaksi
+func (o Object) Read(id uint) Transaksi {
+	var transaksi Transaksi
+	o.DB.First(&transaksi, id)
+
+	return transaksi
+}
+
+// ReadDetailByTransaksi read item detail by transaksi
+func (o Object) ReadDetailByTransaksi(id uint) []Item {
+	var item []Item
+	o.DB.Where(&Item{TransaksiID: id}).Find(&item)
+
+	return item
+}

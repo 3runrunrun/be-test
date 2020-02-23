@@ -3,6 +3,7 @@ package transaksi
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -58,6 +59,44 @@ func (h Handler) Add() gin.HandlerFunc {
 			Pelanggan: pelanggan,
 			Unit:      newTransaksi.Unit,
 			Tagihan:   tagihan,
+			Detail:    detail,
+		}
+
+		c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "status": "success", "data": ret})
+	}
+}
+
+// Read a single transaksi
+func (h Handler) Read() gin.HandlerFunc {
+	var pelanggan string
+
+	return func(c *gin.Context) {
+		idTransaksi, _ := strconv.ParseUint(c.Params.ByName("idTransaksi"), 36, 64)
+
+		dataTransaksi := h.Handler.Read(uint(idTransaksi))
+		if dataTransaksi == (Transaksi{}) {
+			c.JSON(http.StatusOK, gin.H{"code": http.StatusOK, "status": "failed", "message": "transaksi not found"})
+			return
+		}
+		dataDetail := h.Handler.ReadDetailByTransaksi(uint(idTransaksi))
+
+		detail := make([]ItemResponseMapper, len(dataDetail))
+		for i, v := range dataDetail {
+			layanan := h.getLayananDetail(v.LayananID)
+			detail[i] = ItemResponseMapper{
+				LayananID: v.LayananID,
+				Qty:       v.Qty,
+				Layanan:   layanan,
+			}
+		}
+
+		pelanggan = h.getNamaPelanggan(dataTransaksi.PelangganID)
+
+		ret := &TransaksiResponseMapper{
+			ID:        dataTransaksi.ID,
+			Pelanggan: pelanggan,
+			Unit:      dataTransaksi.Unit,
+			Tagihan:   dataTransaksi.Tagihan,
 			Detail:    detail,
 		}
 
