@@ -1,7 +1,8 @@
-# This is a Backend Service
+# be-test
+## Laundry API Endpoint-case
+Initially was a project of take-home case study for a laundry-service REST API.
 
-Well, hello!
-If you want to try provided endpoint for this backend service, you can import Insomnia REST documentation inside this repo.
+### Read this first!
+> Almost every module inside this project is dependence to .env file
 
-Thank you!
-
+** Will be updated every weekend **
