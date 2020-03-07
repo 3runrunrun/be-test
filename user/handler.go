@@ -64,7 +64,7 @@ func (h Handler) Login() gin.HandlerFunc {
 
 		token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 			"user": account.Username,
-			"exp":  time.Now().Add(time.Hour * time.Duration(1)).Unix(),
+			"exp":  time.Now().Add(time.Day * time.Duration(7)).Unix(),
 			"iat":  time.Now().Unix(),
 			"iss":  "smartlink",
 		})
