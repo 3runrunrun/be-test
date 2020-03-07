@@ -47,7 +47,3 @@ func toTableTransaksi(rm RequestMapper) Transaksi {
 func toTableItem(im ItemRequestMapper) Item {
 	return Item{TransaksiID: im.TransaksiID, LayananID: im.LayananID, Qty: im.Qty}
 }
-
-func toResponseMultipleItem(im ItemResponseMapper) []ItemResponseMapper {
-	ret := make([]ItemResp, size)
-}
